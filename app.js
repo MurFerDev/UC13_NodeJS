@@ -306,5 +306,9 @@ app.get('/clientes', (req, res) => {;
   });
 });
 
+app.get('/cadastro', (req, res) => {
+  res.render('usuarios_form');
+});
+
 
 app.listen(8080);

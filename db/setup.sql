@@ -1,11 +1,11 @@
--- DROP DATABASE IF EXISTS ecommerce_pc;
-
+DROP DATABASE IF EXISTS ecommerce_pc;
+ 
 -- Criação do banco de dados
 CREATE DATABASE IF NOT EXISTS ecommerce_pc
     DEFAULT CHARACTER SET = 'utf8mb4';
-
+ 
 USE ecommerce_pc;
-
+ 
 -- Tabela de usuários
 CREATE TABLE usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,11 +15,11 @@ CREATE TABLE usuarios (
   tipo VARCHAR(20) DEFAULT 'comum', -- Ex: 'admin', 'comum', 'vendedor'
   criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
-
+ 
+ 
 INSERT INTO usuarios (nome, email, senha, tipo) VALUES
 ('Administrador', 'admin@email.com', '$2b$10$HASH_AQUI', 'admin');
-
+ 
 -- Tabela de clientes
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,14 +29,14 @@ CREATE TABLE clientes (
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
+ 
 -- Tabela de categorias
 CREATE TABLE categorias (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(50) NOT NULL UNIQUE,
   descricao TEXT
 );
-
+ 
 -- Tabela de produtos
 CREATE TABLE produtos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,7 +48,7 @@ CREATE TABLE produtos (
   criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
-
+ 
 -- Tabela de pedidos
 CREATE TABLE pedidos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,7 +57,7 @@ CREATE TABLE pedidos (
   status VARCHAR(50) DEFAULT 'Em andamento',
   FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
-
+ 
 -- Tabela de itens do pedido
 CREATE TABLE itens_pedido (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,7 +68,7 @@ CREATE TABLE itens_pedido (
   FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
   FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
-
+ 
 -- Inserções iniciais
 INSERT INTO usuarios (nome, email, senha, tipo) VALUES
 ('João Silva', 'joao@email.com', '$2b$10$vcShCSwNHImUdm0/x2xk3e9qBh1DYR4vY.MUvGoX92e6N/ZYnBBNe', 'comum'),
@@ -76,22 +76,22 @@ INSERT INTO usuarios (nome, email, senha, tipo) VALUES
 ('Carlos Souza', 'carlos@email.com', '$2b$10$vcShCSwNHImUdm0/x2xk3e9qBh1DYR4vY.MUvGoX92e6N/ZYnBBNe', 'comum'),
 ('Ana Costa', 'ana@email.com', '$2b$10$vcShCSwNHImUdm0/x2xk3e9qBh1DYR4vY.MUvGoX92e6N/ZYnBBNe', 'comum'),
 ('Pedro Lima', 'pedro@email.com', '$2b$10$vcShCSwNHImUdm0/x2xk3e9qBh1DYR4vY.MUvGoX92e6N/ZYnBBNe', 'comum');
-
+ 
 INSERT INTO clientes (nome, endereco, usuario_id) VALUES
 ('João Silva', 'Rua A, 123', 2),
 ('Maria Oliveira', 'Av. Central, 456', 3),
 ('Carlos Souza', 'Rua das Flores, 78', 4),
 ('Ana Costa', 'Rua da Paz, 10', 5),
 ('Pedro Lima', 'Rua Verde, 98', 6);
-
-
+ 
+ 
 INSERT INTO categorias (nome, descricao) VALUES
 ('Processadores', 'CPUs para desktops'),
 ('Memória RAM', 'Módulos de memória para PCs'),
 ('Placas de Vídeo', 'GPUs para jogos e renderização'),
 ('Armazenamento', 'Dispositivos como SSDs e HDs'),
 ('Placas-Mãe', 'Motherboards compatíveis com CPUs e periféricos');
-
+ 
 INSERT INTO produtos (nome, descricao, preco, estoque, categoria_id) VALUES
 ('Intel Core i5-10400', '6 núcleos, 12 threads, 2.9GHz', 899.90, 10, 1),
 ('AMD Ryzen 5 5600X', '6 núcleos, 12 threads, até 4.6GHz', 1099.99, 7, 1),
